@@ -1,0 +1,22 @@
+rpi-samba:
+    image: "alexandreroman/rpi-samba:0.14.00"
+    container_name: rpi-samba
+    network_mode: bridge
+    restart: always
+    ports:
+      - 137:137/udp
+      - 138:138/udp
+      - 139:139/tcp
+	  - 445:445/tcp
+    volumes:
+    - "./public:/data/share"
+    - "./volumes/openhab/addons:/data/share/openhab/addons"
+    - "./volumes/openhab/conf:/data/share/openhab/conf"
+    - "./volumes/openhab/userdata:/data/share/openhab/userdata"
+    - "./volumes/mosquitto/data:/data/share/mosquitto/data"
+    - "./volumes/mosquitto/log:/data/share/mosquitto/log"
+    - "./services/mosquitto:/data/share/mosquitto/conf"
+	- "./volumes/deCONZ:/data/share/deconz
+#    # The command node is very important. It overrides
+#    # the "gosu openhab tini -s ./start.sh" command from Dockerfile and runs as root!
+#    command: "tini -s ./start.sh server"      
